@@ -6,16 +6,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" padding>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{title}}</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
+
   <ion-list>
-    
-    <ion-item-sliding *ngFor="let item of items; let i = index">
+
+    <!-- Ion 4 apparently doesn't allow you to decorate regular 
+  html elements with things like 'text-center' so I had to wrap
+  it in an ion-item to make it presentable -->
+    <ion-item text-center *ngIf="loadItems().length === 0">
+      <h3 text-center *ngIf="loadItems().length === 0">
+        No items available in the list...
+      </h3>
+    </ion-item>
+
+    <ion-item-sliding *ngFor="let item of loadItems(); let i = index">
       <ion-item>
         <ion-label>
           <h2 item-start>{{item.name}}</h2>

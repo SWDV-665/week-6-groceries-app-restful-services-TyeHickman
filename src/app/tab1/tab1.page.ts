@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { GroceriesService } from '../groceries.service';
 
 
 @Component({
@@ -11,25 +12,17 @@ import { AlertController } from '@ionic/angular';
 export class Tab1Page {
   title = "Grocery";
 
-  items = [
-    {
-      name: "Milk",
-      quantity: 2
-    },
-    {
-      name: "Cherries",
-      quantity: 10
-    },
-    {
-      name: "Yogurt",
-      quantity: 3
-    },
-    {
-      name: "Spinach",
-      quantity: 2
-    }
-  ];
-  constructor(public toastController: ToastController, public alertController: AlertController) {}
+  
+  constructor(public toastController: ToastController,
+              public alertController: AlertController,
+              public dataService: GroceriesService) {
+
+
+  }
+
+  loadItems() {
+    return this.dataService.getItems();
+  }
 
   async removeItem(item, index) {
     console.log("Removing Item... ", item, index);
@@ -40,7 +33,7 @@ export class Tab1Page {
     });
     toast.present();
 
-    this.items.splice(index, 1);
+    this.dataService.removeItem(index);
   }
 
   async editItem(item, index) {
@@ -89,7 +82,7 @@ export class Tab1Page {
           text: 'Save',
           handler: (item) => {
             console.log('Confirm Ok', item);
-            this.items.push(item)
+            this.dataService.addItem(item);
           }
         }
       ]
@@ -127,7 +120,7 @@ export class Tab1Page {
           text: 'Save',
           handler: (item) => {
             console.log('Confirm Ok', item);
-            this.items[index] = item;
+            this.dataService.editItem(item, index);
           }
         }
       ]
