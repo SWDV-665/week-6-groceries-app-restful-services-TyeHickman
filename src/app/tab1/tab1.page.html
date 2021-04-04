@@ -25,10 +25,17 @@
         </ion-label>
       </ion-item>
       <ion-item-options>
-        <button (click)="removeItem(item, i)" ion-button color="secondary" icon-start>
+        <!-- The clss vid has the children of ion-item-options as plain buttons but 
+        we need to use 'ion-item-option' elements and 'ion-button' to qualify it
+        as a button which will allow the colors to show properly-->
+        <ion-item-option (click)="editItem(item, i)" ion-button color="primary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </ion-item-option>
+        <ion-item-option (click)="removeItem(item, i)" color="success" icon-start>
           <ion-icon name="trash"></ion-icon>
           Done
-        </button>
+        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
