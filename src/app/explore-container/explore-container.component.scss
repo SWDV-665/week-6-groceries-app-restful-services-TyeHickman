@@ -25,3 +25,11 @@
 #container a {
   text-decoration: none;
 }
+
+h3.no-item {
+  // use var() instead of map-get because
+  // ion version?
+  // var gets the --ion-color-primary variable from
+  // the theme/variables.scss file 
+  color: var(--ion-color-primary)
+}

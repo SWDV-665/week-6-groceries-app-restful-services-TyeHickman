@@ -13,18 +13,13 @@
     </ion-toolbar>
   </ion-header>
 
-
+  <!-- Ion 4 apparently doesn't allow you to decorate regular 
+html elements with things like 'text-center' so I repurposed this handy app-explorer-container
+module to display a nicely formatted message -->
+  <app-explore-container *ngIf="loadItems().length === 0" name="All Done!"></app-explore-container>
+  
+  
   <ion-list>
-
-    <!-- Ion 4 apparently doesn't allow you to decorate regular 
-  html elements with things like 'text-center' so I had to wrap
-  it in an ion-item to make it presentable -->
-    <ion-item text-center *ngIf="loadItems().length === 0">
-      <h3 text-center *ngIf="loadItems().length === 0">
-        No items available in the list...
-      </h3>
-    </ion-item>
-
     <ion-item-sliding *ngFor="let item of loadItems(); let i = index">
       <ion-item>
         <ion-label>
