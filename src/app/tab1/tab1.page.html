@@ -37,6 +37,10 @@ module to display a nicely formatted message -->
           <ion-icon name="create"></ion-icon>
           Edit
         </ion-item-option>
+        <ion-item-option (click)="shareItem(item, i)" ion-button color="light" icon-start>
+          <ion-icon name="share-social"></ion-icon>
+          Share
+        </ion-item-option>
         <ion-item-option (click)="removeItem(item, i)" color="success" icon-start>
           <ion-icon name="trash"></ion-icon>
           Done
