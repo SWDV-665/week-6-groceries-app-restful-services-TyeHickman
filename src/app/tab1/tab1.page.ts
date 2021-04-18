@@ -12,6 +12,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 })
 export class Tab1Page {
   title = "Grocery";
+  items = [];
+  errorMessage: string;
 
   
   constructor(public toastController: ToastController,
@@ -19,24 +21,39 @@ export class Tab1Page {
               public dataService: GroceriesService,
               public inputDialogService: InputDialogService,
               public socialSharing: SocialSharing) {
+    dataService.dataChanged$.subscribe((dataChanged: boolean) => {
+      this.loadItems();
+      console.log("Data Changed");
+    });
+  }
 
-
+//This is the lifecycle method we need to target for the new version
+//ionViewDidLoad is now ionViewDidEnter
+  ionViewDidEnter() {
+    console.log("did load...");
+    this.loadItems();
   }
 
   loadItems() {
-    return this.dataService.getItems();
+    this.dataService.getItems()
+      .subscribe(
+        items => this.items = items,
+        error => this.errorMessage = <any>error
+      );
+    console.log("loading items...")
   }
 
   async removeItem(item, index) {
-    console.log("Removing Item... ", item, index);
-    const toast = await this.toastController.create({
-      // position: 'top',
-      message: 'Removing Item - ' + index + '...',
-      duration: 3000
-    });
-    toast.present();
+    // console.log("Removing Item... ", item, index);
+    // const toast = await this.toastController.create({
+    //   // position: 'top',
+    //   message: 'Removing Item - ' + index + '...',
+    //   duration: 3000
+    // });
+    // toast.present();
+    console.log(item._id);
 
-    this.dataService.removeItem(index);
+    this.dataService.removeItem(item._id);
   }
 
   async shareItem(item, index) {

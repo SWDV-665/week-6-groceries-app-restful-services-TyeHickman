@@ -16,11 +16,12 @@
   <!-- Ion 4 apparently doesn't allow you to decorate regular 
 html elements with things like 'text-center' so I repurposed this handy app-explorer-container
 module to display a nicely formatted message -->
-  <app-explore-container *ngIf="loadItems().length === 0" name="All Done!"></app-explore-container>
+  <app-explore-container *ngIf="items.length === 0" name="All Done!"></app-explore-container>
   
   
   <ion-list>
-    <ion-item-sliding *ngFor="let item of loadItems(); let i = index">
+    <ion-item-sliding *ngFor="let item of items; let i = index">
+    <!-- <ion-item-sliding *ngFor="let item of loadItems(); let i = index"> -->
       <ion-item>
         <ion-label>
           <h2 item-start>{{item.name}}</h2>

@@ -41,13 +41,23 @@ export class InputDialogService {
           }
         }, {
           text: 'Save',
-          handler: (item) => {
-            console.log('Confirm Ok', item);
-            if (index !== undefined){
-              this.dataService.editItem(item, index);
+          // handler: (item) => {
+          //   console.log('Confirm Ok', item);
+          //   if (index !== undefined){
+          //     this.dataService.editItem(item, index);
+          //   }
+          //   else {
+          //     this.dataService.addItem(item);
+          //   }
+          handler: data => {
+            console.log('Saving data... ' + data);
+            if (index !== undefined) {
+              item.name = data.name;
+              item.quantity = data.quantity;
+              this.dataService.editItem(item,index);
             }
             else {
-              this.dataService.addItem(item);
+              this.dataService.addItem(data);
             }
           }
         }
